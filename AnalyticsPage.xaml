@@ -1,0 +1,40 @@
+﻿<Page x:Class="WpfApp1.AnalyticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="AnalyticsPage" FontFamily="Calibri">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Аналитика продаж" FontSize="26" FontWeight="Bold"/>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Период с:" FontSize="16" VerticalAlignment="Center"/>
+            <DatePicker Name="StartDatePicker" Width="160" FontSize="14" SelectedDateChanged="DateChanged"/>
+            <TextBlock Text="по:" FontSize="16" VerticalAlignment="Center"/>
+            <DatePicker Name="EndDatePicker" Width="160" FontSize="14" SelectedDateChanged="DateChanged"/>
+        </StackPanel>
+        <TextBlock Grid.Row="2" Name="ErrorText" Foreground="Red" FontSize="14"/>
+
+        <StackPanel Grid.Row="3">
+            <TextBlock Name="TotalOrdersText" Text="Всего заказов: 0" FontSize="18"/>
+            <TextBlock Name="TotalSumText" Text="Общая сумма продаж: 0,00 ₽" FontSize="18"/>
+            <TextBlock Text="Топ-5 моделей по проданным парам" FontSize="18"/>
+            <ListView Name="TopProductsListView" Height="280">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Модель" DisplayMemberBinding="{Binding ProductName}" Width="400"/>
+                        <GridViewColumn Header="Производитель" DisplayMemberBinding="{Binding Manufacture}" Width="250"/>
+                        <GridViewColumn Header="Пар продано" DisplayMemberBinding="{Binding TotalPairs}" Width="150"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+        <Button Grid.Row="4" Content="Экспорт в PDF" Width="200" Height="40" FontSize="16" HorizontalAlignment="Right" Click="ExportButton_Click"/>
+    </Grid>
+</Page>

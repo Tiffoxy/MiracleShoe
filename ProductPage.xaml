@@ -1,0 +1,116 @@
+﻿<Page x:Class="WpfApp1.ProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp1"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ProductPage" FontFamily="Calibri">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Vertical">
+            
+            <StackPanel Orientation="Vertical">
+                <TextBlock Name="FIOTB" Text="" FontSize="15"></TextBlock>
+                <TextBlock Name="RoleTB" Text="" FontSize="15"></TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Name="TSearch" Text="Поиск" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                    <TextBox Name="TBSearch" Width="200" TextChanged="TBSearch_TextChanged" FontSize="14"></TextBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Name="TCateghory" Text="Категория" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                    <ComboBox Name="ComboCateghory" SelectionChanged="ComboCateghory_SelectionChanged" Width="175" FontSize="15">
+                        <TextBlock>Все</TextBlock>
+                        <TextBlock>Детская обувь</TextBlock>
+                        <TextBlock>Женская обувь</TextBlock>
+                        <TextBlock>Мужская обувь</TextBlock>                        
+                    </ComboBox>
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Name="TBoh" Text="Фильтровaть по" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                    <ComboBox Name="ComboBoh" SelectionChanged="ComboBoh_SelectionChanged" Width="175" FontSize="15">
+                        <TextBlock>Все</TextBlock>
+                        <TextBlock>по нименованию от А до я</TextBlock>
+                        <TextBlock>по производителю по убыванию</TextBlock>
+                        <TextBlock>По возрастнаию цены</TextBlock>
+                        <TextBlock>По убыванию цены</TextBlock>
+                    </ComboBox>
+                </StackPanel>
+                
+            </StackPanel>
+
+        </StackPanel>
+        
+        <ListView Name="ProductListView" Grid.Row="1">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name ="AddToOrderMenuItem" Header="Добавить к заказу" Click="MenuItemAddToOrderClick"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="700"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Image Width="200"  Grid.Column="0" Grid.RowSpan="4" Stretch="UniformToFill" HorizontalAlignment="Center">
+                            <Image.Source>
+                                <Binding Path="ProductPhotoPath">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>
+                                            /Res/picture.png
+                                        </ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                        <TextBlock Text="{Binding ProductName}" FontSize="25" Grid.Row="0" Grid.Column="1" Margin="5" TextWrapping="Wrap"></TextBlock>
+                        <TextBlock Text="{Binding ManufactureTitle}" FontSize="20" Grid.Row="1" Grid.Column="1" Margin="5"></TextBlock>
+                        <TextBlock Text="{Binding CategoryTitle}" FontSize="20" Grid.Row="2" Grid.Column="1" Margin="5"></TextBlock>
+                        <TextBlock Text="{Binding SubCategoryTitle}" FontSize="20" Grid.Row="3" Grid.Column="1" Margin="5"></TextBlock>
+                        <TextBlock Text="{Binding Price}" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.RowSpan="5" Grid.Column="2" Margin="5"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
+            <Button Name="OrdersBtn" Content="Заказы" Click="OrdersBtn_Click" Visibility="Collapsed"/>
+            <Button Name="CartBtn" Content="Корзина" Click="CartBtn_Click" Visibility="Collapsed"/>
+            <Button Name="AnalyticsBtn" Content="Аналитика" Click="AnalyticsBtn_Click" Visibility="Collapsed"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button Name="LeftDirBtn" Content="&lt;" Click="LeftDirBtn_Click" Grid.Row="2" Width="25" Height="25" HorizontalAlignment="Right"></Button>
+            <ListBox Name="PageListBox" FontSize="20" MouseUp="PageListBox_MouseUp">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Name="RightDirBtn" Content="&gt;" Click="RightDirBtn_Click" Grid.Row="2" Width="25" Height="25" HorizontalAlignment="Right"></Button>
+        </StackPanel>
+    </Grid>
+</Page>
